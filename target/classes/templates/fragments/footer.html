@@ -1,0 +1,23 @@
+<!doctype HTML>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+
+</head>
+<body>
+
+    <div class="footer" th:fragment="footer">
+        <div class="row">
+            <footer class="col-12">
+            	<div >
+	            	<p class="text-white footer-text" style="margin: 0;" th:text="#{footer.text}"> footer.text nije pronadjen </p>     <!--/*  */-->
+            	</div>              
+	        </footer>
+		</div>
+        
+        <script type="text/javascript" th:src="@{webjars/jquery/3.3.1-1/jquery.min.js}"></script>
+        <script type="text/javascript" th:src="@{webjars/bootstrap/4.1.0/js/bootstrap.min.js}"></script>
+        <script type="text/javascript" th:src="@{/js/code.js}"></script>
+    </div>
+    
+</body>
+</html>

@@ -1,0 +1,62 @@
+<!DOCTYPE HTML>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+
+<head th:replace="fragments/header :: header-css">
+</head>
+
+<body>
+<!--/*  */-->
+    <div th:replace="fragments/header :: header"></div>
+
+	<div th:if="${lang}" class="div-for-lang-change">
+		<img class="flag" th:src="@{/images/serbia-flag-round-icon-256.png}">
+    	<button type="button" class="btn btn-link border bg-white" th:text="#{lang.change}" onclick="window.location.href='http://localhost:8080/?lang=sr'"></button>
+    </div>
+    
+    <div th:unless="${lang}" class="div-for-lang-change">
+		<img class="flag" th:src="@{/images/united-kingdom-flag-round-icon-256.png}" >
+    	<button  type="button" class="btn btn-link border bg-white" th:text="#{lang.change}" onclick="window.location.href='http://localhost:8080/?lang=en'"></button>
+    </div>
+
+    <div class="container-fluid">
+    
+        <div class="row div-for-add-button">
+        	<a class="btn btn-light col-12 col-md-4 offset-md-4" th:href="@{article/new}" th:text="#{admin.create.article}" sec:authorize="hasRole('ROLE_ADMIN')"></a>
+    	</div>
+    	
+        <div sec:authorize="!isAuthenticated()">
+    		<div class="alert alert-info" th:text="#{alert.must.be.loged.in}"></div>
+    	</div>
+        <div class="row">
+        	
+	    	<div class="col card-deck ml-5 my-3" th:if="${!articles.isEmpty()}" >
+	            <div class="card"  th:each="article : ${articles}">
+	                    <div sec:authorize="hasRole('ROLE_ADMIN')">
+                            <a class="btn btn-light col" th:href="@{'article/delete/' + ${article.getId()}}"  ><i class="fas fa-times"></i></a>
+	                        
+                            <a class="btn btn-light col"th:href="@{'article/edit/' + ${article.getId()}}" ><i class="fas fa-wrench"></i></a>
+	                  
+	                    </div>
+	                    <img class="card-img-top" th:if="${!article.getImageUrl().isEmpty()}" th:src="${article.getImageUrl()}" alt="Card image cap">
+	                    <div class="card-body">
+	                        <h4 class="card-title" th:text="${article.getName()}"></h4>
+	                        <p class="card-text" th:text="${article.getDescription()}"></p>
+	                    </div>
+	                    <div class="card-footer">
+	                        <p th:text="${article.getPrice()} + ' RSD'"></p>
+	                        
+	                       
+	                        
+	                    <a sec:authorize="hasRole('ROLE_USER')" th:href="${'/cart/add/' + article.getId()}" class="btn btn-lg btn-outline-info btn-block" th:text="#{article.add}" ></a>     
+	                    </div>
+	                </div>
+	                
+	  		  </div>
+        </div>
+    </div>
+
+    <div th:replace="fragments/footer :: footer"></div>
+    
+</body>
+
+</html>

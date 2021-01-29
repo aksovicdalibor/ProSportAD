@@ -1,0 +1,26 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="fragments/header :: header-css">
+</head>
+
+<body>
+
+    <div th:replace="fragments/header :: header"></div>
+
+    <div class="container">
+        <h1 class="user-title" th:text="#{user.title}"></h1>
+        <br>
+
+        <h3 class="user-info" th:text="#{user.firstname} + ': ' + ${user.getFirstName()}"></h3>
+        <h3 class="user-info" th:text="#{user.lastname} + ': ' + ${user.getLastName()}"></h3>
+        <h3 class="user-info" th:text="#{user.age} + ': ' + ${user.getAge()}"></h3>
+        <h3 class="user-info" th:text="#{user.city} + ': ' + ${user.getCity()}"></h3>
+        <h3 class="user-info" th:text="#{user.gender} + ': ' + ${user.getGender()}"></h3>
+    </div>
+
+    <div th:replace="fragments/footer :: footer"></div>
+
+</body>
+
+</html>
